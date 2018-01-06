@@ -1,0 +1,38 @@
+data  =  LOAD  '/home/hduser/h1b'  USING PigStorage('\t')  AS  ( s_no:int, case_status:chararray,employer_name:chararray,  soc_name:chararray, jobtitle:chararray, full_time_position:chararray, wage:long, year:chararray, worksite:chararray, longitude:long, latitude:long );
+--dump data;
+a = foreach data generate $1 as ca, $2 as emp, $4, $7 as year;
+--dump a;
+e = filter a by year=='2011';
+--dump e;
+b = group e by emp;
+--dump b;
+c = foreach b generate group as emp, COUNT(e.ca) as count, flatten(e.year);
+--dump c;
+z = distinct c;
+--dump z;
+d = limit (order z by count desc) 5;
+--dump d;
+
+f = filter a by year=='2012';
+--dump e;
+g = group f by emp;
+--dump b;
+h = foreach g generate group as emp, COUNT(f.ca) as count, flatten(f.year);
+--dump c;
+i = distinct h;
+--dump i;
+j = limit (order i by count desc) 5;
+--dump j;
+
+ff = filter a by year=='2013';
+--dump e;
+gg = group ff by emp;
+--dump b;
+hh = foreach gg generate group as emp, COUNT(ff.ca) as count, flatten(ff.year);
+--dump c;
+ii = distinct hh;
+--dump i;
+jj = limit (order ii by count desc) 5;
+--dump jj;
+ee = union d,j,jj;
+dump ee;

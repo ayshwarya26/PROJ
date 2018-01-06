@@ -1,0 +1,9 @@
+3)Which industry(SOC_NAME) has the most number of Data Scientist positions?[certified]
+select soc_name,COUNT(job_title) as c from h1b_final where case_status="CERTIFIED" and job_title="DATA SCIENTIST" group by soc_name order by c desc limit 1;
+
+
+
+
+
+
+

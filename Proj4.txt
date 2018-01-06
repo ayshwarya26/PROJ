@@ -1,0 +1,2 @@
+4)Which top 5 employers file the most petitions each year? - Case Status – ALL
+select employer_name,COUNT(case_status) as ca,year from h1b_final where year=="2011" group by employer_name,year order by ca desc limit 5;
